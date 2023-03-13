@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="flipdown.min.css" />
+    <script src="flipdown.js"></script>
+    <title>CountDown</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: sans-serif;
+        font-size: 16px;
+      }
+
+      body.dark {
+        background-color: #1e1e1e;
+        color: #fff;
+      }
+
+      header {
+        align-items: center;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+        display: flex;
+        justify-content: space-between;
+        padding: 16px 32px;
+      }
+
+      body.dark header {
+        box-shadow: 0 0 4px rgba(255, 255, 255, 0.25);
+      }
+
+      main {
+        display: flex;
+        justify-content: center;
+        padding: 32px;
+      }
+
+      #toggle {
+        background-color: #1e1e1e;
+        border-radius: 4px;
+        border: none;
+        box-shadow: 0 0 2px rgba(255, 255, 255, 0.25);
+        color: #fff;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 8px 16px;
+      }
+
+      body.dark #toggle {
+        background-color: #fff;
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
+        color: #000;
+      }
+    </style>
+  </head>
+  <body class="dark">
+    <header>
+      <h1>CountDown</h1>
+      <button id="toggle">Toggle Theme</button>
+    </header>
+    <main>
+      <div id="flipdown"></div>
+    </main>
+    <script>
+      const themes = ['dark', 'light'];
+      let theme = themes[1];
+
+      const makeFlipDown = () => {
+        document.getElementById('flipdown').innerHTML = '';
+        document.getElementById('flipdown').classList = ['flipdown'];
+        new FlipDown(
+          Math.floor(new Date(2023, 2, 25, 10).getTime() / 1000),
+          'flipdown',
+          { theme }
+        ).start();
+      };
+
+      document.getElementById('toggle').addEventListener('click', () => {
+        document.querySelector('body').classList.toggle('dark');
+        theme = theme === themes[0] ? themes[1] : themes[0];
+        makeFlipDown();
+      });
+
+      makeFlipDown();
+    </script>
+  </body>
+</html>
